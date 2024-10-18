@@ -1,0 +1,25 @@
+CFG_PL011 ?= y
+CFG_TCC_OMC ?= y
+CFG_TCC_MBOX ?= y
+CFG_TCC_HSM ?= y
+CFG_RPMB_FS ?= y
+CFG_RPMB_WRITE_KEY ?= $(CFG_RPMB_FS)
+CFG_CORE_RESERVED_SHM ?= y
+
+$(call force,CFG_ARM_GICV3,y)
+$(call force,CFG_CORE_LARGE_PHYS_ADDR,y)
+$(call force,CFG_CORE_ARM64_PA_BITS,34)
+$(call force,CFG_TEE_CORE_NB_CORE,12)
+$(call force,CFG_NUM_THREADS,12)
+$(call force,CFG_CORE_THREAD_SHIFT,1)
+
+CFG_TZDRAM_START	?= 0x18E000000
+CFG_TZDRAM_SIZE		?= 0x01E00000
+
+CFG_SHMEM_START		?= 0x18FE00000
+CFG_SHMEM_SIZE		?= 0x00200000
+
+include core/arch/arm/cpu/cortex-armv8-0.mk
+$(call force,CFG_ARM64_core,y)
+
+TCMKTOOL_IMGNAME ?= AP0-OPTEE
